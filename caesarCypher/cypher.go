@@ -52,9 +52,9 @@ func main() {
 
     writer := bufio.NewWriterSize(stdout, 16 * 1024 * 1024)
 
-    nTemp, err := strconv.ParseInt(strings.TrimSpace(readLine(reader)), 10, 64)
-    checkError(err)
-    n := int32(nTemp)
+    // nTemp, err := strconv.ParseInt(strings.TrimSpace(readLine(reader)), 10, 64)
+    // checkError(err)
+    // n := int32(nTemp)
 
     s := readLine(reader)
 
