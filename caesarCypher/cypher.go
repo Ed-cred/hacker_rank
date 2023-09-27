@@ -18,16 +18,16 @@ import (
  *  2. INTEGER k
  */
 
-func caesarCipher(s string, k int32) string {
+func caesarCipher(s string, k int) string {
 	alphabetLower:= "abcdefghijklmnopqrstuvwxyz"
 	alphabetUpper:= "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 	var ret string
 	for _, r := range s {
 		switch {
 		case strings.ContainsRune(alphabetLower, r):
-			ret = ret + string(rotate(r, int(k), []rune(alphabetLower))) 
+			ret = ret + string(rotate(r, k, []rune(alphabetLower))) 
 		case strings.ContainsRune(alphabetUpper, r):
-			ret = ret + string(rotate(r, int(k), []rune(alphabetUpper))) 
+			ret = ret + string(rotate(r, k, []rune(alphabetUpper))) 
 		default:
 			ret = ret + string(r)
 		}
@@ -59,7 +59,7 @@ func main() {
 
     kTemp, err := strconv.ParseInt(strings.TrimSpace(readLine(reader)), 10, 64)
     checkError(err)
-    k := int32(kTemp)
+    k := int(kTemp)
 
     result := caesarCipher(s, k)
 
