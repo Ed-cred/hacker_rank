@@ -28,13 +28,17 @@ func caesarCipher(s string, k int32) string {
 			case unicode.IsUpper(r):
 				if r + k > 90 {
 					r = 65 + (r + k - 90)
-					ret += string(r)
+				} else {
+					r = r + k
 				}
+				ret += string(r)
 			case unicode.IsLower(r):
 				if r + k > 172 {
 					r = 97 + (r + k - 172)
-					ret += string(r)
+				} else {
+					r = r + k
 				}
+				ret += string(r)
 			}
 		} 
 		ret += string(r)
