@@ -18,13 +18,12 @@ import (
 
 func camelcase(s string) int32 {
     // Write your code here
-	chars := []rune(s)			
-	if len(chars) == 0 {
+	if len(s) == 0 {
 		return 0
 	}
 	var words int32 = 1
-	for i := 0; i < len(chars); i ++ {
-		if unicode.IsUpper(chars[i]) {
+	for _, r := range s {
+		if unicode.IsUpper(r) {
 			words ++
 		} 
 	}
