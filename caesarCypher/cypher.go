@@ -7,7 +7,6 @@ import (
 	"os"
 	"strconv"
 	"strings"
-	"unicode"
 )
 
 /*
@@ -20,31 +19,30 @@ import (
  */
 
 func caesarCipher(s string, k int32) string {
-    // Write your code here
+	alphabetLower:= "abcdefghijklmnopqrstuvwxyz"
+	alphabetUpper:= "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 	var ret string
 	for _, r := range s {
-		if unicode.IsLetter(r) {
-			switch {
-			case unicode.IsUpper(r):
-				if r + k > 90 {
-					r = 65 + (r + k - 90)
-				} else {
-					r = r + k
-				}
-				ret += string(r)
-			case unicode.IsLower(r):
-				if r + k > 172 {
-					r = 97 + (r + k - 172)
-				} else {
-					r = r + k
-				}
-				ret += string(r)
-			}
-		} 
-		ret += string(r)
+		switch {
+		case strings.ContainsRune(alphabetLower, r):
+			ret = ret + string(rotate(r, int(k), []rune(alphabetLower))) 
+		case strings.ContainsRune(alphabetUpper, r):
+			ret = ret + string(rotate(r, int(k), []rune(alphabetUpper))) 
+		default:
+			ret = ret + string(r)
+		}
 	}
 	return ret
 }
+func rotate(s rune, delta int, key []rune) rune {
+	idx := strings.IndexRune(string(key), s)
+	if idx < 0 {
+		panic ("idx < 0")
+	}
+	idx = (idx + delta) % len(key)
+	return key[idx]
+}
+
 
 func main() {
     reader := bufio.NewReaderSize(os.Stdin, 16 * 1024 * 1024)
@@ -56,9 +54,6 @@ func main() {
 
     writer := bufio.NewWriterSize(stdout, 16 * 1024 * 1024)
 
-    // nTemp, err := strconv.ParseInt(strings.TrimSpace(readLine(reader)), 10, 64)
-    // checkError(err)
-    // n := int32(nTemp)
 
     s := readLine(reader)
 
